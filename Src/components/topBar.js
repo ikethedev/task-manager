@@ -32,7 +32,7 @@ topBarTemplate.innerHTML = `
 </nav>
 `
 
-export default class topBar{
+export default class TopBar{
     constructor(){
         this.rootElement = topBarTemplate.contentEditable.clone(true);
     }
