@@ -1,0 +1,53 @@
+.nav {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid #e4ebfa;
+    border-bottom: 1px solid #e4ebfa;
+    width: 100%;
+    height: fit-content;
+  
+    .nav__buttons {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        gap: 16px;
+      }
+  
+    #nav__logo {
+      display: none;
+    }
+  
+    @media screen and (min-width: 768px) {
+      #nav__logo {
+        display: block;
+        padding: 28px 24px;
+        border-right: 1px solid #e4ebfa;
+      }
+    }
+  
+    .nav__menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 16px;
+  
+      .nav__heading {
+        font-size: 1.125rem;
+        font-family: "Plus Jakarta Sans", serif;
+      }
+
+      @media screen and (min-width: 768px) {
+        .nav__heading {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+  }
+
+  .add-task-btn {
+   margin: 10px 16px;
+
+    border-radius: 24px;
+  }
+  

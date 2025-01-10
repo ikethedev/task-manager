@@ -1,3 +1,7 @@
+import { sideMenu } from "../../components/sideMenu/sideMenu.js";
+import { topBar } from "../../components/topBar/topBar.js";
+
+
 const mainPageTemplate = document.createElement("template");
 mainPageTemplate.innerHTML = `
     <div class="mainPage">
@@ -14,7 +18,9 @@ export default class Page{
     }
 
     render(){
-        this.body.innerHTML = ""
+        this.rootElement.querySelector(".mainPage__topBar").appendChild(topBar.render())
+        this.rootElement.querySelector(".mainPage__sidemenu").appendChild(sideMenu.render())
+
         return this.rootElement
     }
 }

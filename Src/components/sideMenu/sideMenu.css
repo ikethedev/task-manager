@@ -1,0 +1,115 @@
+.sidemenu {
+    position: relative;
+    display: block;
+    left: 0;
+    transition: all 1000ms ease-in-out;
+    width: 300px;
+    height: 100%;
+    padding-right: 23px;
+    font-family: "Plus Jakarta Sans", serif;
+    border-right: 1px solid #e4ebfa;
+  
+    .sidemenu__header {
+      padding-top: 26px;
+      padding-left: 32px;
+      padding-bottom: 54px;
+    }
+  
+    .sidemenu__platform {
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+  
+      .sidemenu__platform-heading {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #828fa3;
+        padding-left: 32px;
+        padding-bottom: 19px;
+        line-height: 15px;
+        letter-spacing: 2.4px;
+      }
+  
+      .sidemenu__list {
+        .sidemenu__list-item {
+          display: flex;
+          align-items: center;
+          padding-left: 32px;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          gap: 16px;
+          border-radius: 0 100px 100px 0;
+          line-height: 19px;
+          font-weight: 700;
+          font-size: 0.9375rem;
+          color: #828fa3;
+        }
+  
+        .active {
+          background-color: #635fc7;
+          color: #ffffff;
+        }
+  
+        .sidemenu__add-item {
+          color: #635fc7;
+        }
+  
+        .list__path {
+          fill: #828fa3;
+        }
+  
+        .create__path {
+          fill: #635fc7;
+        }
+  
+        .active__path {
+          fill: #ffffff;
+        }
+      }
+    }
+  
+    .sidemenu__toggle-view {
+      display: flex;
+      padding: 16px 64px;
+      background-color: #f4f7fd;
+      margin-left: 32px;
+      margin-top: auto;
+      justify-self: end;
+      border-radius: 6px;
+      justify-content: center;
+      gap: 24px;
+  
+      .view__toggle-btn {
+        width: 40px;
+        height: 20px;
+        background-color: #635fc7;
+        border-radius: 12px;
+        position: relative;
+      }
+  
+      .view__toggle-btn::before {
+        content: "";
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        transition: 500ms ease-in-out all;
+      }
+  
+      .view__toggle-btn.dark-active::before {
+        left: 75%;
+      }
+    }
+  
+    .sidemenu__toggle-hide {
+      display: flex;
+      margin-left: 32px;
+      gap: 15px;
+      padding: 15px 0;
+    }
+  }

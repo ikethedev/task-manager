@@ -1,6 +1,10 @@
-import Application from "../components/app.js";
-import Card from "../components/card.js";
-import Page from "../components/homePage.js";
+import Application from "../Scripts/app.js";
+import Card from "../components/card/card.js";
+import Page from "../pages/homePage/homePage.js";
+
+import appFacade from "../facade/appFacade.js";
+
+appFacade;
 
 class MainPage {
     constructor(){
@@ -13,7 +17,6 @@ class MainPage {
         this.body.replaceChildren(page.render())
         return this.rootElement;
     }
-
    
 }
 
