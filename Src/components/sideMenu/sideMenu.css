@@ -113,3 +113,15 @@
       padding: 15px 0;
     }
   }
+
+
+.sidemenu__hide {
+    /*   display: none; */
+    width: 0;
+    visibility: hidden;
+    position: relative;
+    transform: 1000ms ease-in-out all;
+    left: -1000px;
+    padding: 0;
+  }
+  
