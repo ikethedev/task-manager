@@ -25,5 +25,5 @@ class SidebarState{
         this.listeners.forEach((listener) => listener(this.state));
     }
 }
-
-export default new SidebarState()
+const sideBarState = new SidebarState()
+export { sideBarState }

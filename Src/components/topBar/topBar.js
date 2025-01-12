@@ -1,4 +1,5 @@
 import { sideBarState } from "../../utlis/sideBarState.js";
+import EditTaskModule from "../editTaskModule/editTaskModule.js";
 const link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = 'Src/components/topBar/topBar.css'; 
@@ -29,7 +30,7 @@ topBarTemplate.innerHTML = `
   <button class="primary-btn add-task-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M7.368 12V7.344H12V4.632H7.368V0H4.656V4.632H0V7.344H4.656V12H7.368Z" fill="white" />
     </svg></button>
-  <svg width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="edit-task-btn" width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="1.84615" cy="1.84615" r="1.84615" fill="#828FA3" />
     <circle cx="1.84615" cy="8.00045" r="1.84615" fill="#828FA3" />
     <circle cx="1.84615" cy="14.1538" r="1.84615" fill="#828FA3" />
@@ -44,10 +45,14 @@ class TopBar {
     this.showSideBar = this.showSideBar.bind(this)
 
     this.rootElement.querySelector("#nav__logo").addEventListener("click", this.showSideBar)
+    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.showEditModule)
     
   }
 
-
+  showEditModule(){
+    const editModule = new EditTaskModule()
+   document.querySelector(".mainPage").appendChild(editModule.render())
+  }
  showSideBar(){ 
     const currentState = sideBarState.getSideBarState();
     sideBarState.setSideState(!currentState)
