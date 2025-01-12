@@ -69,7 +69,7 @@ addTaskModuleTemplate.innerHTML = `
           <li class="form__status-option">Done</li>
         </ul>
       </div>
-      <button class="primary-btn btn">Create Task</button>
+      <button class="primary-btn btn create-task-btn">Create Task</button>
 
     </div>
   </form>
@@ -79,6 +79,14 @@ addTaskModuleTemplate.innerHTML = `
 export default class AddTaskModule{
     constructor(){
         this.rootElement = addTaskModuleTemplate.content.cloneNode(true)
+
+        this.rootElement.querySelector(".create-task-btn").addEventListener("click", this.createTask)
+    }
+
+    createTask(e){
+        e.preventDefault()
+        alert("Hello from create task")
+        document.querySelector(".mainPage").removeChild(document.querySelector(".add__task-modal"))
     }
 
     render(){
