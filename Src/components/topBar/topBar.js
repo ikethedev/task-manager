@@ -1,4 +1,5 @@
 import { sideBarState } from "../../utlis/sideBarState.js";
+import AddTaskModule from "../addTaskModule./addTaskModule.js";
 import EditTaskModule from "../editTaskModule/editTaskModule.js";
 const link = document.createElement('link');
 link.rel = 'stylesheet';
@@ -45,14 +46,21 @@ class TopBar {
     this.showSideBar = this.showSideBar.bind(this)
 
     this.rootElement.querySelector("#nav__logo").addEventListener("click", this.showSideBar)
-    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.showEditModule)
+    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.showEditTaskModule)
+    this.rootElement.querySelector(".add-task-btn").addEventListener("click", this.showAddTaskModule)
     
   }
 
-  showEditModule(){
+  showEditTaskModule(){
     const editModule = new EditTaskModule()
    document.querySelector(".mainPage").appendChild(editModule.render())
   }
+
+  showAddTaskModule(){
+    const addModule = new AddTaskModule()
+    document.querySelector(".mainPage").appendChild(addModule.render())
+  }
+
  showSideBar(){ 
     const currentState = sideBarState.getSideBarState();
     sideBarState.setSideState(!currentState)
