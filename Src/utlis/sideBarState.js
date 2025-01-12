@@ -26,4 +26,5 @@ class SidebarState{
     }
 }
 
-export default new SidebarState()
+const sideBarState = new SidebarState()
+export { sideBarState }
