@@ -11,11 +11,11 @@ addTaskModuleTemplate.innerHTML = `
     <div class="form__inputs">
       <div class="form__input-title">
         <label class="form__heading">Title</label>
-        <input class="form__column-input" placeholder="e.g. Take coffee break" />
+        <input id="form__title" class="form__column-input title" placeholder="e.g. Take coffee break" />
       </div>
-      <div class="form__description">
+      <div  class="form__description">
         <label class="form__heading">Description</label>
-        <textarea class="form__description-value" rows="4" cols="50" placeholder="Describe yourself here...">
+        <textarea id="description" class="form__description-value" rows="4" cols="50" placeholder="Describe yourself here...">
 
 </textarea>
       </div>
@@ -26,7 +26,7 @@ addTaskModuleTemplate.innerHTML = `
       <ul class="form__columns-list">
         <div class="form__columns-category">
           <li class="form__column--name">Todo</li>
-          <svg class="form__delete" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="delete-btn" class="form__delete" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="12.728" width="3" height="18" transform="rotate(45 12.728 0)" fill="#828FA3" />
             <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
           </svg>
@@ -34,7 +34,7 @@ addTaskModuleTemplate.innerHTML = `
         </div>
         <div class="form__columns-category">
           <li class="form__column--name">Doing</li>
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="delete-btn" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="12.728" width="3" height="18" transform="rotate(45 12.728 0)" fill="#828FA3" />
             <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
           </svg>
@@ -43,14 +43,14 @@ addTaskModuleTemplate.innerHTML = `
 
         <div class="form__columns-category">
           <li class="form__column--name">Done</li>
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="delete-btn" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="12.728" width="3" height="18" transform="rotate(45 12.728 0)" fill="#828FA3" />
             <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
           </svg>
 
         </div>
       </ul>
-      <button class="secondary-btn btn">+ Add New Subtask</button>
+      <button class="secondary-btn btn create-subtask-btn">+ Add New Subtask</button>
     </div>
 
     <div class="form__status">
@@ -81,12 +81,32 @@ export default class AddTaskModule{
         this.rootElement = addTaskModuleTemplate.content.cloneNode(true)
 
         this.rootElement.querySelector(".create-task-btn").addEventListener("click", this.createTask)
+        this.rootElement.querySelector(".create-subtask-btn").addEventListener("click", this.createSubTask)
+        this.rootElement.querySelector(".form__columns-list").addEventListener("click", this.deleteSubTask)
     }
+
 
     createTask(e){
         e.preventDefault()
         alert("Hello from create task")
+        console.log(document.querySelector(".title").value)
+        console.log(document.querySelector("#description").value)
+      // add logic to give object access to the subtask 
         document.querySelector(".mainPage").removeChild(document.querySelector(".add__task-modal"))
+       
+    }
+
+    createSubTask(e){
+        e.preventDefault()
+        alert("subtask has been created")
+        const listItem = document.createElement("li")
+        document.querySelector(".forms__columns-list").appendChild(listItem)
+    }
+
+    deleteSubTask(e){
+        if(e.target.classList.contains("delete-btn")){
+            e.target.closest(".form__columns-category").remove()
+        }
     }
 
     render(){
