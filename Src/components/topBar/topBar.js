@@ -1,3 +1,4 @@
+import { sideBarState } from "../../utlis/sideBarState.js";
 const link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = 'Src/components/topBar/topBar.css'; 
@@ -40,12 +41,31 @@ topBarTemplate.innerHTML = `
 class TopBar {
   constructor() {
     this.rootElement = topBarTemplate.content.cloneNode(true);
+    this.showSideBar = this.showSideBar.bind(this)
+
+    this.rootElement.querySelector("#nav__logo").addEventListener("click", this.showSideBar)
+    
+  }
+
+
+ showSideBar(){ 
+    const currentState = sideBarState.getSideBarState();
+    sideBarState.setSideState(!currentState)
+
+    const sideMenu = document.querySelector(".sidemenu");
+if(currentState){
+  document.querySelector(".sidemenu").classList.remove("sidemenu__hide")
+} else {
+  document.querySelector(".sidemenu").classList.add("sidemenu__hide")
+
+}
   }
 
   render() {
     document.head.appendChild(link);
     return this.rootElement;
   }
+
 }
 
 const topBar = new TopBar();
