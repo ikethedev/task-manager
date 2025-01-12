@@ -3,6 +3,7 @@ const link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = 'Src/components/editTaskModule/editTaskModule.css'; 
 
+
 editTaskModuleTemplate.innerHTML = `
 <section class="edit__task-modal">
 <form class="form">
@@ -81,7 +82,6 @@ export default class EditTaskModule{
     }
 
     render(){
-        document.head.appendChild(link)
         return this.rootElement
     }
 }

@@ -50,16 +50,9 @@ class TopBar {
     this.showSideBar = this.showSideBar.bind(this)
 
     this.rootElement.querySelector("#nav__logo").addEventListener("click", this.showSideBar)
-    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.editTask)
     
   }
 
-  editTask(e){
-    e.preventDefault();
-    const editTaskModule = new EditTaskModule()
-    document.querySelector(".mainPage").appendChild(editTaskModule.render())
-    console.log("Hello from edit")
-  }
 
  showSideBar(){ 
     const currentState = sideBarState.getSideBarState();
