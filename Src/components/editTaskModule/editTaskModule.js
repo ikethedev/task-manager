@@ -72,7 +72,7 @@ editTaskModuleTemplate.innerHTML = `
 </section>
 `
 
-class EditTaskModule{
+export default class EditTaskModule{
     constructor(){
         this.rootElement = editTaskModuleTemplate.content.cloneNode(true)
     }
