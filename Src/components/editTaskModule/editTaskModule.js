@@ -1,4 +1,7 @@
 const editTaskModuleTemplate = document.createElement("template");
+const link = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = 'Src/components/editTaskModule/editTaskModule.css'; 
 
 editTaskModuleTemplate.innerHTML = `
 <section class="edit__task-modal">
@@ -78,6 +81,7 @@ export default class EditTaskModule{
     }
 
     render(){
+        document.head.appendChild(link)
         return this.rootElement
     }
 }

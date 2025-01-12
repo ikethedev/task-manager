@@ -82,6 +82,7 @@ export default class AddTaskModule{
     }
 
     render(){
+        document.head.appendChild(link)
         return this.rootElement
     }
 } 
