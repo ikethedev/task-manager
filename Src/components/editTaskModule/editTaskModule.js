@@ -81,6 +81,7 @@ export default class EditTaskModule{
     }
 
     render(){
+      document.head.appendChild(link)
         return this.rootElement
     }
 }
