@@ -54,7 +54,6 @@ class TopBar {
   }
 
 
-
  showSideBar(){ 
     const currentState = sideBarState.getSideBarState();
     sideBarState.setSideState(!currentState)
