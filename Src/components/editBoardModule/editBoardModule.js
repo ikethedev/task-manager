@@ -1,4 +1,8 @@
 const editBoardTemplate = document.createElement("template");
+const link = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = 'Src/components/editBoardModule/editBoardModule.css'; 
+
 
 editBoardTemplate.innerHTML = ` 
 <section class="edit__modal">
@@ -50,9 +54,10 @@ editBoardTemplate.innerHTML = `
 export default class EditBoard{
    constructor(){
     this.rootElement = editBoardTemplate.content.cloneNode(true)
-   } 
+   }
 
    render(){
+    document.head.appendChild(link)
     return this.rootElement
    }
 }
