@@ -1,6 +1,6 @@
 import { sideBarState } from "../../utlis/sideBarState.js";
 import AddTaskModule from "../addTaskModule./addTaskModule.js";
-import EditTaskModule from "../editTaskModule/editTaskModule.js";
+import EditBoard from "../editBoardModule/editBoardModule.js";
 const link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = 'Src/components/topBar/topBar.css'; 
@@ -46,14 +46,14 @@ class TopBar {
     this.showSideBar = this.showSideBar.bind(this)
 
     this.rootElement.querySelector("#nav__logo").addEventListener("click", this.showSideBar)
-    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.showEditTaskModule)
+    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.showEditBoardModule)
     this.rootElement.querySelector(".add-task-btn").addEventListener("click", this.showAddTaskModule)
     
   }
 
-  showEditTaskModule(){
-    const editModule = new EditTaskModule()
-   document.querySelector(".mainPage").appendChild(editModule.render())
+  showEditBoardModule(){
+    const editBoardModule = new EditBoard()
+   document.querySelector(".mainPage").appendChild(editBoardModule.render())
   }
 
   showAddTaskModule(){
@@ -65,7 +65,6 @@ class TopBar {
     const currentState = sideBarState.getSideBarState();
     sideBarState.setSideState(!currentState)
 
-    const sideMenu = document.querySelector(".sidemenu");
 if(currentState){
   document.querySelector(".sidemenu").classList.remove("sidemenu__hide")
 } else {
