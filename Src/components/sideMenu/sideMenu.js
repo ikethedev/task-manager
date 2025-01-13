@@ -3,6 +3,7 @@ link.rel = "stylesheet";
 link.href = "Src/components/sideMenu/sideMenu.css";
 // import { createListItem } from "../../utlis/ulits";
 import { sideBarState } from "../../utlis/sideBarState.js";
+import AddBoard from "../addBoardModule/addBoardModule.js";
 
 const sideMenuTemplate = document.createElement("template");
 sideMenuTemplate.innerHTML = `
@@ -118,8 +119,8 @@ class SideMenu {
   }
 
   createNewBoard() {
-    // const addBoardModule = new addBoard()
-    // document.querySelector("mainPage").appendChild(addBoardModule.render())
+    const addBoardModule = new AddBoard()
+    document.querySelector(".mainPage").appendChild(addBoardModule.render())
   }
 
   render() {
