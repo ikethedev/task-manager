@@ -1,7 +1,7 @@
 import Application from "../Scripts/app.js";
 import Card from "../components/card/card.js";
 import Page from "../pages/homePage/homePage.js";
-
+import { appData } from "../utlis/appData.js";
 import appFacade from "../facade/appFacade.js";
 
 appFacade;
