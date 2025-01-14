@@ -1,3 +1,5 @@
+import { appData } from "../../utlis/appData.js";
+
 const addBoardModuleTemplate = document.createElement("template");
 const link = document.createElement('link');
 link.rel = 'stylesheet';
@@ -43,8 +45,8 @@ addBoardModuleTemplate.innerHTML = `
     </div>
 
     <div class="form__btns">
-      <button class="secondary-btn btn">+ Add New Column</button>
-      <button class="primary-btn btn">Save Changes</button>
+      <button class="secondary-btn btn create-column">+ Add New Column</button>
+      <button class="primary-btn btn create-board">Save Changes</button>
     </div>
   </form>
 </section>
@@ -53,6 +55,20 @@ addBoardModuleTemplate.innerHTML = `
 export default class AddBoard{
     constructor(){
         this.rootElement = addBoardModuleTemplate.content.cloneNode(true)
+        this.rootElement.querySelector(".create-board").addEventListener("click", this.createBoard)
+        this.rootElement.querySelector(".create-column").addEventListener("click", this.createColumn)
+    }
+
+    createBoard(e){
+      e.preventDefault()
+      const newBoard = appData.createBoard({title: "New Board"})
+      console.log(newBoard)
+    }
+
+    createColumn(e){
+      e.preventDefault()
+      const newColumn = appData.createColumn({title: "New Column"})
+      console.log(newColumn)
     }
 
     render(){
