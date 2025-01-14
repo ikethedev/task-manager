@@ -1,9 +1,9 @@
 import { appData } from "../../utlis/appData.js";
 
 const addBoardModuleTemplate = document.createElement("template");
-const link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = 'Src/components/addTaskModule./addTaskModule.css'; 
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "Src/components/addTaskModule./addTaskModule.css";
 
 addBoardModuleTemplate.innerHTML = `
 <section class="add__task-modal">
@@ -11,35 +11,22 @@ addBoardModuleTemplate.innerHTML = `
     <h2 class="form__header">Add New Board</h2>
     <div class="form__input">
       <label class="form__heading">Name</label>
-      <input class="form__column-input" placeholder="e.g. Web Design" />
+      <input class="form__board-name" placeholder="e.g. Web Design" />
     </div>
     <div class="form__columns">
       <label class="form__heading"> Columns</label>
       <ul class="form__columns-list">
         <div class="form__columns-category">
           <li class="form__column--name">Todo</li>
-          <svg class="form__delete" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="12.728" width="3" height="18" transform="rotate(45 12.728 0)" fill="#828FA3" />
-            <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
-          </svg>
-
-        </div>
+          <img src="Src/assets/remove.svg" class="remove-column" alt="remove column" />
+      </div>
         <div class="form__columns-category">
           <li class="form__column--name">Doing</li>
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="12.728" width="3" height="18" transform="rotate(45 12.728 0)" fill="#828FA3" />
-            <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
-          </svg>
-
+          <img src="Src/assets/remove.svg" class="remove-column" alt="remove column" />
         </div>
-
         <div class="form__columns-category">
           <li class="form__column--name">Done</li>
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="12.728" width="3" height="18" transform="rotate(45 12.728 0)" fill="#828FA3" />
-            <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3" />
-          </svg>
-
+          <img src="Src/assets/remove.svg" class="remove-column" alt="remove column" />
         </div>
       </ul>
     </div>
@@ -50,29 +37,121 @@ addBoardModuleTemplate.innerHTML = `
     </div>
   </form>
 </section>
-`
+`;
 
-export default class AddBoard{
-    constructor(){
-        this.rootElement = addBoardModuleTemplate.content.cloneNode(true)
-        this.rootElement.querySelector(".create-board").addEventListener("click", this.createBoard)
-        this.rootElement.querySelector(".create-column").addEventListener("click", this.createColumn)
+export default class AddBoard {
+  constructor() {
+    this.rootElement = addBoardModuleTemplate.content.cloneNode(true);
+    // methods
+    this.createBoard = this.createBoard.bind(this);
+    this.createColumn = this.createColumn.bind(this);
+    this.addColumnFromInput = this.addColumnFromInput.bind(this);
+
+    // event listener
+    this.rootElement
+      .querySelector(".create-board")
+      .addEventListener("click", this.createBoard);
+    this.rootElement
+      .querySelector(".create-column")
+      .addEventListener("click", this.createColumn);
+    this.rootElement
+      .querySelector(".form__columns")
+      .addEventListener("click", this.removeColumn);
+  }
+
+  createBoard(e) {
+    e.preventDefault();
+    const name = document.querySelector(".form__board-name").value;
+    const newBoard = appData.createBoard({ title: name, columns: [] });
+    alert("Board created successfully")
+    const sideMenuList = document.querySelector(".platform__create-new");
+
+    const listItem = document.createElement("li");
+    listItem.classList.add("sidemenu__list-item");
+    const boardImg = document.createElement("img");
+    boardImg.src = "Src/assets/boardIcon.svg";
+    const boardName = document.createElement("p");
+    boardName.textContent = newBoard.title;
+    listItem.appendChild(boardImg);
+    listItem.appendChild(boardName);
+  
+    document.querySelector(".sidemenu__list").insertBefore(listItem, sideMenuList);
+    console.log(newBoard);
+    document.querySelector(".add__task-modal").remove();
+
+  }
+
+  removeColumn(e) {
+    console.log(e.target);
+    if (e.target.classList.contains("remove-column")) {
+      e.target.parentElement.remove();
+    }
+  }
+
+  createInputField() {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Enter column name";
+    input.classList.add("add-column-input");
+
+    input.addEventListener("blur", () => {
+      this.addColumnFromInput(input.value);
+      input.remove(); // Remove the input field after use
+    });
+
+    return input;
+  }
+
+  createColumn(e) {
+    e.preventDefault();
+    const input = this.createInputField();
+    document.querySelector(".form__columns").appendChild(input);
+  }
+
+  createInputField() {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Enter column name";
+    input.classList.add("add-column-input");
+
+    input.addEventListener("blur", () => {
+      this.addColumnFromInput(input.value);
+      input.remove(); // Remove the input field after use
+    });
+
+    return input;
+  }
+
+  addColumnFromInput(columnName) {
+    if (!columnName.trim()) {
+      console.error("Column name cannot be empty.");
+      return;
     }
 
-    createBoard(e){
-      e.preventDefault()
-      const newBoard = appData.createBoard({title: "New Board"})
-      console.log(newBoard)
-    }
+    const columnDiv = document.createElement("div");
+    columnDiv.classList.add("form__columns-category");
 
-    createColumn(e){
-      e.preventDefault()
-      const newColumn = appData.createColumn({title: "New Column"})
-      console.log(newColumn)
-    }
+    const columnLi = document.createElement("li");
+    columnLi.classList.add("form__column--name");
+    columnLi.textContent = columnName;
 
-    render(){
-        document.head.appendChild(link)
-        return this.rootElement
-    }
+    const removeImg = document.createElement("img");
+    removeImg.src = "Src/assets/remove.svg";
+    removeImg.classList.add("remove-column");
+    removeImg.alt = "remove column";
+
+    columnDiv.appendChild(columnLi);
+    columnDiv.appendChild(removeImg);
+
+    document.querySelector(".form__columns").appendChild(columnDiv);
+  }
+
+
+
+
+
+  render() {
+    document.head.appendChild(link);
+    return this.rootElement;
+  }
 }
