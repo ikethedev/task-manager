@@ -2,8 +2,14 @@ class AppData{
     constructor(){
         this.boards = []
         // ids are updated on current board and task click
-        this.boardId = null;
-        this.taskId = null;
+        this.selectedBoardId = null;
+        this.selectedTaskId = null;
+
+        //methods 
+  
+        this.getBoardId = this.getBoardId.bind(this);
+        this.getTaskId = this.getTaskId.bind(this);
+    
     }
 
     createBoard({title, task = []} = {}){
@@ -18,19 +24,19 @@ class AppData{
     }
 
     getBoardId(){
-
+        return this.selectedBoardId;
     }
 
     setBoardId(id){
-        
+        this.selectedBoardId = id;
     }
 
     getTaskId(){
-        
+        return this.selectedTaskId;
     }
 
     setTaskId(id){
-        
+        this.selectedTaskId = id;
     }
 
     // this needs to push the task in the correct board
