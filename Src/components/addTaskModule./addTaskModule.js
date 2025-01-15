@@ -1,3 +1,5 @@
+import { appData } from "../../utlis/appData.js";
+
 const addTaskModuleTemplate = document.createElement("template");
 const link = document.createElement('link');
 link.rel = 'stylesheet';
@@ -80,9 +82,19 @@ export default class AddTaskModule{
     constructor(){
         this.rootElement = addTaskModuleTemplate.content.cloneNode(true)
 
+        // methods
+        this.createSubTask = this.createSubTask.bind(this)
+        this.createTask = this.createTask.bind(this)
+        this.addSubTaskFromInput = this.addSubTaskFromInput.bind(this)
+        this.setTaskCurrentStatus = this.setTaskCurrentStatus.bind(this)
+        this.showCurrentStatusOptions = this.showCurrentStatusOptions.bind(this)
+
+        // event listeners
         this.rootElement.querySelector(".create-task-btn").addEventListener("click", this.createTask)
         this.rootElement.querySelector(".create-subtask-btn").addEventListener("click", this.createSubTask)
         this.rootElement.querySelector(".form__columns-list").addEventListener("click", this.deleteSubTask)
+        this.rootElement.querySelector(".form__status").addEventListener("click", this.showCurrentStatusOptions)
+        this.rootElement.querySelector(".form__status-options").addEventListener("click", this.setTaskCurrentStatus)
     }
 
 
@@ -92,22 +104,82 @@ export default class AddTaskModule{
         console.log(document.querySelector(".title").value)
         console.log(document.querySelector("#description").value)
       // add logic to give object access to the subtask 
-        document.querySelector(".mainPage").removeChild(document.querySelector(".add__task-modal"))
+        // document.querySelector(".mainPage").removeChild(document.querySelector(".add__task-modal"))
        
     }
 
     createSubTask(e){
         e.preventDefault()
         alert("subtask has been created")
-        const listItem = document.createElement("li")
-        document.querySelector(".forms__columns-list").appendChild(listItem)
+        const input = this.createInputField();
+        document.querySelector(".form__columns-list").appendChild(input)
     }
+
+    createInputField() {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Enter column name";
+      input.classList.add("form__columns-list");
+  
+      input.addEventListener("blur", () => {
+        this.addSubTaskFromInput(input.value);
+        input.remove(); // Remove the input field after use
+      });
+  
+      return input;
+    }
+
+    addSubTaskFromInput(columnName) {
+      if (!columnName.trim()) {
+        console.error("Column name cannot be empty.");
+        return;
+      }
+  
+      const columnDiv = document.createElement("div");
+      columnDiv.classList.add("form__columns-category");
+  
+      const columnLi = document.createElement("li");
+      columnLi.classList.add("form__column--name");
+      columnLi.textContent = columnName;
+  
+      const removeImg = document.createElement("img");
+      removeImg.src = "Src/assets/remove.svg";
+      removeImg.classList.add("remove-column");
+      removeImg.alt = "remove column";
+  
+      columnDiv.appendChild(columnLi);
+      columnDiv.appendChild(removeImg);
+  
+      document.querySelector(".form__columns-list").appendChild(columnDiv);
+
+    }
+
+    showCurrentStatusOptions(){
+      document.querySelector(".form__status-options").style.display = "flex"
+    }
+
+    setTaskCurrentStatus(e){
+      e.stopPropagation()
+      console.log(e.target.textContent)
+      document.querySelector(".form__current-active-status").textContent = e.target.textContent
+      document.querySelector(".form__status-options").style.display = "none"
+        // if(e.currentTarget.classList.contains("form__status-option")){
+        //   console.log(e.currentTarget.textContent)
+        //   document.querySelector(".form__status").textContent = e.target.textContent
+        //   document.querySelector(".form__status-options").style.display = "none"
+        // }
+    
+    }
+
+
 
     deleteSubTask(e){
         if(e.target.classList.contains("delete-btn")){
             e.target.closest(".form__columns-category").remove()
         }
     }
+
+    
 
     render(){
         document.head.appendChild(link)
