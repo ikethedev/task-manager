@@ -1,10 +1,15 @@
 import { sideBarState } from "../../utlis/sideBarState.js";
 import AddTaskModule from "../addTaskModule./addTaskModule.js";
-import EditBoard from "../editBoardModule/editBoardModule.js";
-const link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = 'Src/components/topBar/topBar.css'; 
+import { EditBoardOptions } from "../EditBoardOptions/editBoardOptions.js";
+import { sideMenu } from "../sideMenu/sideMenu.js";
+import AddBoard from "../addBoardModule/addBoardModule.js";
 
+import EditBoard from "../editBoardModule/editBoardModule.js";
+
+import { resizeHandler } from "../../utlis/resizeHandler.js"; 
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "Src/components/topBar/topBar.css";
 
 const topBarTemplate = document.createElement("template");
 topBarTemplate.innerHTML = `
@@ -22,7 +27,7 @@ topBarTemplate.innerHTML = `
     <rect opacity="0.5" x="18" width="6" height="25" rx="2" fill="#635FC7" />
   </svg>
 
-  <h2 class="nav__heading">Platform Launch</h2>
+  <h2 class="nav__heading">Create a board</h2>
   <svg class="nav__arrow" width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M1 1L5 5L9 1" stroke="#635FC7" stroke-width="2" />
   </svg>
@@ -31,7 +36,7 @@ topBarTemplate.innerHTML = `
   <button class="primary-btn add-task-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M7.368 12V7.344H12V4.632H7.368V0H4.656V4.632H0V7.344H4.656V12H7.368Z" fill="white" />
     </svg></button>
-  <svg class="edit-task-btn" width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="edit-board-btn" width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="1.84615" cy="1.84615" r="1.84615" fill="#828FA3" />
     <circle cx="1.84615" cy="8.00045" r="1.84615" fill="#828FA3" />
     <circle cx="1.84615" cy="14.1538" r="1.84615" fill="#828FA3" />
@@ -43,41 +48,73 @@ topBarTemplate.innerHTML = `
 class TopBar {
   constructor() {
     this.rootElement = topBarTemplate.content.cloneNode(true);
-    this.showSideBar = this.showSideBar.bind(this)
+    this.showSideBar = this.showSideBar.bind(this);
 
-    this.rootElement.querySelector("#nav__logo").addEventListener("click", this.showSideBar)
-    this.rootElement.querySelector(".edit-task-btn").addEventListener("click", this.showEditBoardModule)
-    this.rootElement.querySelector(".add-task-btn").addEventListener("click", this.showAddTaskModule)
-    
+    this.rootElement
+      .querySelector("#nav__logo")
+      .addEventListener("click", this.showSideBar);
+    this.rootElement
+      .querySelector(".edit-board-btn")
+      .addEventListener("click", this.showEditBoardOptions);
+    this.rootElement
+      .querySelector(".add-task-btn")
+      .addEventListener("click", this.showAddTaskModule);
+    this.rootElement
+      .querySelector(".nav__logo")
+      .addEventListener("click", this.createNewBoard)
+    this.rootElement
+      .querySelector(".nav__arrow")
+      .addEventListener("click", this.toggleSideBar);
+      resizeHandler()
   }
 
-  showEditBoardModule(){
-    const editBoardModule = new EditBoard()
-   document.querySelector(".mainPage").appendChild(editBoardModule.render())
+  createNewBoard() {
+    console.log("ehllo")
+    const addBoardModule = new AddBoard();
+    document.querySelector(".mainPage").appendChild(addBoardModule.render());
   }
 
-  showAddTaskModule(){
-    const addModule = new AddTaskModule()
-    document.querySelector(".mainPage").appendChild(addModule.render())
+  toggleSideBar(){
+    const sidemenu = document.querySelector(".sidemenu")
+    if(sidemenu.style.display === "none"){
+      sidemenu.style.display = "block"
+    }else{
+      sidemenu.style.display = "none"
+
+    }  }
+
+  showEditBoardOptions() {
+    alert("Hello world ")
+    const editBoardOptions = new EditBoardOptions();
+    console.log(editBoardOptions)
+    document.querySelector(".mainPage").appendChild(editBoardOptions.render());
   }
 
- showSideBar(){ 
+  showAddTaskModule() {
+    const addModule = new AddTaskModule();
+    document.querySelector(".mainPage").appendChild(addModule.render());
+  }
+
+  showSideBar() {
     const currentState = sideBarState.getSideBarState();
-    sideBarState.setSideState(!currentState)
+    sideBarState.setSideState(!currentState);
 
-if(currentState){
-  document.querySelector(".sidemenu").classList.remove("sidemenu__hide")
-} else {
-  document.querySelector(".sidemenu").classList.add("sidemenu__hide")
-
-}
+    if (currentState) {
+      document.querySelector(".sidemenu").classList.remove("sidemenu__hide");
+    } else {
+      document.querySelector(".sidemenu").classList.add("sidemenu__hide");
+    }
   }
+
+  setTopBarTitle(title){
+    document.querySelector(".nav__heading").textContent = title;
+  }
+ 
 
   render() {
     document.head.appendChild(link);
     return this.rootElement;
   }
-
 }
 
 const topBar = new TopBar();

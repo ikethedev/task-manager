@@ -1,4 +1,5 @@
 import { appData } from "../../utlis/appData.js";
+import { topBar } from "../topBar/topBar.js";
 
 const addBoardModuleTemplate = document.createElement("template");
 const link = document.createElement("link");
@@ -14,7 +15,7 @@ addBoardModuleTemplate.innerHTML = `
       <input class="form__board-name" placeholder="e.g. Web Design" />
     </div>
     <div class="form__columns">
-      <label class="form__heading"> Columns</label>
+      <label class="form__heading">Columns</label>
       <ul class="form__columns-list">
         <div class="form__columns-category">
           <li class="form__column--name">Todo</li>
@@ -62,12 +63,22 @@ export default class AddBoard {
   createBoard(e) {
     e.preventDefault();
     const name = document.querySelector(".form__board-name").value;
-    const newBoard = appData.createBoard({ title: name, columns: [] });
-    alert("Board created successfully")
+    const columnElements = document.querySelectorAll(".form__column--name")
+
+    topBar.setTopBarTitle(name);
+
+    const columns = Array.from(columnElements).map(column => ({
+      id: Math.random().toString(36).substr(2, 9), // Generate unique IDs for columns
+      status: column.textContent.trim(),
+      tasks: []
+    }));
+  
+    const newBoard = appData.createBoard({title: name, columns });
     const sideMenuList = document.querySelector(".platform__create-new");
 
     const listItem = document.createElement("li");
     listItem.classList.add("sidemenu__list-item");
+    listItem.setAttribute("data-id", newBoard.id);
     const boardImg = document.createElement("img");
     boardImg.src = "Src/assets/boardIcon.svg";
     const boardName = document.createElement("p");
@@ -75,8 +86,32 @@ export default class AddBoard {
     listItem.appendChild(boardImg);
     listItem.appendChild(boardName);
   
-    document.querySelector(".sidemenu__list").insertBefore(listItem, sideMenuList);
+    document.querySelector(".sidemenu__list-items").appendChild(listItem);
     console.log(newBoard);
+
+    document.querySelector(".task__container").innerHTML = "";
+
+    
+    columns.forEach(column => {
+ 
+      const columnSection = document.createElement("section");
+      columnSection.classList.add("columns");
+      columnSection.setAttribute("data-id", column.id);
+  
+      const columnHeader = document.createElement("h3");
+      columnHeader.classList.add("columns__header-heading");
+      columnHeader.textContent = column.status;
+  
+      const columnTasks = document.createElement("ul");
+      columnTasks.classList.add("task-list");
+      columnTasks.setAttribute("data-column-id", column.id);
+  
+      columnSection.appendChild(columnHeader);
+      columnSection.appendChild(columnTasks);
+  
+      document.querySelector(".task__container").appendChild(columnSection);
+    });
+  
     document.querySelector(".add__task-modal").remove();
 
   }
@@ -93,6 +128,9 @@ export default class AddBoard {
     input.type = "text";
     input.placeholder = "Enter column name";
     input.classList.add("add-column-input");
+    input.classList.add("form__column--name");
+    input.style.marginTop = "10px";
+
 
     input.addEventListener("blur", () => {
       this.addColumnFromInput(input.value);
@@ -106,20 +144,6 @@ export default class AddBoard {
     e.preventDefault();
     const input = this.createInputField();
     document.querySelector(".form__columns").appendChild(input);
-  }
-
-  createInputField() {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = "Enter column name";
-    input.classList.add("add-column-input");
-
-    input.addEventListener("blur", () => {
-      this.addColumnFromInput(input.value);
-      input.remove(); // Remove the input field after use
-    });
-
-    return input;
   }
 
   addColumnFromInput(columnName) {
@@ -143,12 +167,8 @@ export default class AddBoard {
     columnDiv.appendChild(columnLi);
     columnDiv.appendChild(removeImg);
 
-    document.querySelector(".form__columns").appendChild(columnDiv);
+    document.querySelector(".form__columns-list").appendChild(columnDiv);
   }
-
-
-
-
 
   render() {
     document.head.appendChild(link);

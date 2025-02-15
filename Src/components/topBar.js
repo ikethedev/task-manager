@@ -37,6 +37,10 @@ export default class TopBar{
         this.rootElement = topBarTemplate.contentEditable.clone(true);
     }
 
+    initEventListeners(){
+        this.rootElement.querySelector('.nav__butg').addEventListener('click', this.showStatusOptions.bind(this));
+    }
+
     render(){
         return this.rootElement
     }

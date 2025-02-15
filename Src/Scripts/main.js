@@ -4,7 +4,7 @@ import Page from "../pages/homePage/homePage.js";
 import { appData } from "../utlis/appData.js";
 import appFacade from "../facade/appFacade.js";
 
-appFacade;
+
 
 class MainPage {
     constructor(){

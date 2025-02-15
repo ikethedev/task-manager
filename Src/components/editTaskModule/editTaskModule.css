@@ -14,6 +14,7 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  top: 0;
   position: absolute;
   z-index: 100;
   justify-content: center;
@@ -197,15 +198,14 @@
 
     .form__status-options {
       padding: 16px;
-      display: none;
       flex-direction: column;
       gap: 8px;
       background-color: white;
       border-radius: 8px;
       position: absolute;
       height: 90px;
-      width: 90%;
-      margin-top: 10px;
+      width: 93%;
+      margin-top: 70px;
       box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     }
   }

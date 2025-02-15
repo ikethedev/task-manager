@@ -7,28 +7,32 @@ class AppData{
 
         //methods 
   
-        this.getBoardId = this.getBoardId.bind(this);
+        this.getCurrentBoard = this. getCurrentBoard.bind(this);
         this.getTaskId = this.getTaskId.bind(this);
     
     }
 
-    createBoard({title, task = []} = {}){
+    createBoard({title, columns = [], task = []} = {}){
         const board = {
             id: Math.random().toString(36).substr(2, 9),
             title,
+            columns: columns,
             tasks: task,
         }
         this.boards.push(board)
         console.log(this.boards)
+        this.setCurrentBoard(board.id)
         return board; 
     }
 
-    getBoardId(){
+    getCurrentBoard(){
         return this.selectedBoardId;
     }
 
-    setBoardId(id){
-        this.selectedBoardId = id;
+    setCurrentBoard(id){
+        console.log(id)
+        const currentBoard = this.boards.find(board => board.id === id)
+        this.selectedBoardId = currentBoard;
     }
 
     getTaskId(){
@@ -70,6 +74,23 @@ class AppData{
     addTaskToBoard(boardId, task){
         const board = this.boards.find(board => board.id === boardId)
         board.tasks.push(task)
+    }
+
+    createColumns(status){
+        const column ={
+            id: Math.random().toString(36).substr(2, 9),
+            status: status,
+            tasks: []
+        }
+        return column
+    }
+
+    replaceBoard(boardId, newData){
+        const board = this.boards.find(board => board.id === boardId)
+        console.log("Board data updated:", board);
+        // this.boards[this.boards.indexOf(board)] = newData
+        // this.selectedBoardId = this.boards.indexOf(board)
+        // console.log("Board data updated:", this.boards[boardIndex]);
     }
 
 }

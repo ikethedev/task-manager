@@ -190,24 +190,22 @@
           padding: 8px 16px;
           border: 1px solid rgba(130, 143, 163, 0.25);
           border-radius: 4px;
-          .form__current-active-status {
-          }
+       
         }
       }
   
       .form__status-options {
         padding: 16px;
-        display: none;
         flex-direction: column;
         gap: 8px;
         background-color: white;
         border-radius: 8px;
         position: absolute;
-        height: 90px;
         width: 90%;
         margin-top: 10px;
         box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
       }
+
     }
   
     .modal__research-status-option {
@@ -236,4 +234,53 @@
     background-color: rgba(99, 95, 199, 0.1);
     color: #635fc7;
   }
+
+  .hide{
+    display: none;
+  }
   
+
+
+.columns {
+  padding-right: 24px;
+  height: 100vh;
+
+  .columns__header-heading {
+    color: #828fa3;
+    font-size: 0.75rem;
+    line-height: 15px;
+    letter-spacing: 2.4px;
+  }
+ 
+
+  
+  }
+
+  .card {
+    border-radius: 8px;
+    padding: 23px 16px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    width: 280px;
+
+    .card__header {
+      font-size: 0.9325rem;
+      font-weight: 700;
+      padding-bottom: 8px;
+      line-height: 19px;
+    }
+
+    .card__subheader {
+      color: #828fa3;
+      font-size: 0.75rem;
+      line-height: 15px;
+    }
+  }
+
+
+.add-new-column {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+
